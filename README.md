@@ -61,6 +61,16 @@ On first run, threadwatch creates `~/.threadwatch/tools/` and installs a starter
 
 From there the directory is yours — delete tools you don't want, edit existing ones, or drop in new `.py` files and they're picked up on the next run.
 
+### No API key? Swap in DuckDuckGo
+
+`examples/tools/web_search_ddg.py` is a keyless alternative using the DuckDuckGo Instant Answers API. To use it instead of Tavily:
+
+```bash
+cp examples/tools/web_search_ddg.py ~/.threadwatch/tools/web_search.py
+```
+
+It uses the same tool name (`web_search`) so the agent doesn't notice the difference. DuckDuckGo returns summaries and related topics rather than full results — good for factual lookups, less useful for deep research.
+
 ### Writing a custom tool
 
 Each tool file needs a `DEFINITION` dict (OpenAI function format) and an async function with the same name:
