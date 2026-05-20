@@ -54,13 +54,12 @@ Key resolution order per provider:
 
 ## Tools
 
-threadwatch has no built-in tools. Drop `.py` files into `~/.threadwatch/tools/` and they're picked up automatically:
+On first run, threadwatch creates `~/.threadwatch/tools/` and installs a starter set automatically:
 
-```bash
-mkdir -p ~/.threadwatch/tools
-cp examples/tools/calculator.py ~/.threadwatch/tools/
-cp examples/tools/web_search.py ~/.threadwatch/tools/   # requires TAVILY_API_KEY
-```
+- **calculator** — safe math expression evaluator, no external dependencies
+- **web_search** — web search via Tavily (requires `TAVILY_API_KEY`)
+
+From there the directory is yours — delete tools you don't want, edit existing ones, or drop in new `.py` files and they're picked up on the next run.
 
 ### Writing a custom tool
 
