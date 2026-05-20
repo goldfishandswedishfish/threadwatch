@@ -55,6 +55,26 @@ _SHELL_CONFIGS = [
 _MARKER = "# added by threadwatch"
 
 
+_STARTER_TOOLS = ["calculator.py", "web_search.py"]
+_EXAMPLES_DIR = Path(__file__).parent.parent / "examples" / "tools"
+
+
+def _ensure_tools() -> None:
+    """Copy starter tools to ~/.threadwatch/tools/ on first run if the directory doesn't exist."""
+    from .tools import TOOLS_DIR
+    if TOOLS_DIR.exists():
+        return
+    TOOLS_DIR.mkdir(parents=True)
+    for filename in _STARTER_TOOLS:
+        src = _EXAMPLES_DIR / filename
+        if src.exists():
+            shutil.copy(src, TOOLS_DIR / filename)
+    typer.echo(
+        f"[threadwatch] Created {TOOLS_DIR} with starter tools: {', '.join(t.replace('.py', '') for t in _STARTER_TOOLS)}\n"
+        f"  Add or remove tools by editing files in that directory."
+    )
+
+
 def _ensure_on_path() -> None:
     """If the directory containing this script isn't in PATH, add it to shell configs."""
     script_dir = Path(sys.argv[0]).resolve().parent
@@ -101,6 +121,7 @@ def _parse_provider(value: str) -> tuple[str, str, str]:
 def main(ctx: typer.Context) -> None:
     _ensure_on_path()
     _ensure_secrets()
+    _ensure_tools()
     if ctx.invoked_subcommand is None:
         typer.echo(ctx.get_help())
 
