@@ -26,7 +26,7 @@ Per provider, per step:
 ## Install
 
 ```bash
-pip install -e .
+pip install git+https://github.com/goldfishandswedishfish/threadwatch
 ```
 
 Requires Python 3.9+. Uses `httpx` for all HTTP — no LLM SDK dependencies.
